@@ -1,0 +1,55 @@
+.form{
+    width: 450px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.textarea{
+    width: 400px;
+    height: 220px;
+
+    outline: none;
+    resize: none;
+
+    font-family: sans-serif;
+	font-weight: 100;
+    font-size: 16px;
+    
+    padding: 20px;
+
+    border: 0.5px solid rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.counter{
+    margin-top: 15px;
+}
+.counterError{
+    margin-top: 15px;
+    color: rgb(200, 0, 0);
+}
+
+.submitButton{
+    width: 200px;
+    height: 40px;
+
+    margin-top: 30px;
+
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 5px;
+
+    color:  rgb(0, 0, 0);
+    font-family: sans-serif;
+	font-weight: 100;
+    font-size: 16px;
+
+    transition: all 0.2s ease-in;
+}
+
+.submitButton:hover{
+    background-color: rgb(240, 240, 240);
+}

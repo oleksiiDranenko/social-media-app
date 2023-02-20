@@ -1,0 +1,107 @@
+.div{
+    width: 100%;
+    height: 60px;
+
+    background-color: rgb(240, 240, 240);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    position: fixed;
+}
+
+.logoDiv{
+    width: 125px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 25px;
+    height: 25px;
+}
+
+.navLink{
+    width: 80px;
+    height: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+
+    transition: all ease 0.2s;
+}
+
+.navLinkFocused{
+    width: 80px;
+    height: 30px;
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+
+    transition: all ease 0.2s;
+}
+
+.navDiv{
+    width: 300px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.signUpLink{
+    width: 90px;
+    height: 30px;
+    
+    background-color: rgb(240, 240, 240);
+    border: 0.5px solid rgb(0, 0, 0);
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+
+    transition: background-color 0.2s ease-in;
+}
+
+.signUpLink:hover{
+    background-color: rgb(255, 255, 255);
+}
+
+
+.userDiv{
+    height: 100%;
+    width: 120px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.profileImg{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+}
