@@ -8,8 +8,8 @@
 }
 
 .textarea{
-    width: 400px;
-    height: 220px;
+    width: 440px;
+    height: 260px;
 
     outline: none;
     resize: none;
@@ -17,8 +17,10 @@
     font-family: sans-serif;
 	font-weight: 100;
     font-size: 16px;
+    line-height: 30px;
     
-    padding: 20px;
+    padding: 15px 20px;
+    box-sizing: border-box;
 
     border: 0.5px solid rgb(0, 0, 0);
     border-radius: 10px;
@@ -26,6 +28,9 @@
 
 .counter{
     margin-top: 15px;
+    color: rgba(0, 0, 0, 0.5);
+
+    font-size: 14px;
 }
 .counterError{
     margin-top: 15px;

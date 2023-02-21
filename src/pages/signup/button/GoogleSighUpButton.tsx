@@ -1,6 +1,6 @@
 import classes from './GoogleSignUpButton.module.css';
 import { auth, provider } from '../../../config/firebase';
-import { signInWithRedirect } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import googleIcon from '../icon/google.png';
 
@@ -9,8 +9,8 @@ export const GoogleSignUpButton = () => {
     const navigate = useNavigate();
 
     const signUp = async () => {
+        await signInWithPopup(auth,provider);
         navigate('/');
-        await signInWithRedirect(auth,provider);
     }
     
 

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import classes from './Navbar.module.css';
 import { auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import unknownUser from './icon/user-picture.png';
+import unknownUser from '../../icons/user-picture.png';
 import logo from './icon/logo.png';
 import { useLocation } from 'react-router-dom';
 

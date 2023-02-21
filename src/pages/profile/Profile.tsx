@@ -1,6 +1,6 @@
 import { auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import unknownUser from '../../components/navbar/icon/user-picture.png';
+import unknownUser from '../../icons/user-picture.png';
 import classes from './Profile.module.css';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ export const Profile = () => {
 
     const userSignOut = async () => {
         await signOut(auth);
-        navigate('/login');
+        navigate('/signup');
     }
 
     return (
