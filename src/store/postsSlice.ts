@@ -7,11 +7,11 @@ export const postsSlice = createSlice({
     name: 'postsSlice',
     initialState,
     reducers: {
-        getPosts(state, action){
+        getPostsArray(state, action){
             return action.payload
         }
     }
 }) 
 
 export default postsSlice.reducer;
-export const { getPosts } = postsSlice.actions;
+export const { getPostsArray } = postsSlice.actions;

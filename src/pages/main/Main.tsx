@@ -2,9 +2,12 @@ import classes from './Main.module.css';
 import { Post } from '../../components/post/Post';
 
 import { getDocs, collection, query, orderBy, limit } from 'firebase/firestore';
-import { database, auth} from '../../config/firebase';
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { database } from '../../config/firebase';
+import { useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store/store';
+import { getPostsArray } from '../../store/postsSlice';
 
 export interface PostInterface {
     postId: string,
@@ -16,11 +19,8 @@ export interface PostInterface {
 }
 
 export const Main = () => {
-
-    //getting the user
-    const [user] = useAuthState(auth);
-
-    const [postsList, setPostsList] = useState<PostInterface[] | null>(null);
+    const postsArray = useSelector((state: RootState) => state.postsArray);
+    const dispatch = useDispatch();
 
     const postsCollection = collection(database, 'posts');
 
@@ -30,7 +30,7 @@ export const Main = () => {
         const querySnapshot = await getDocs(q);
         const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id })) as PostInterface[];
 
-        setPostsList(posts);
+        dispatch(getPostsArray(posts));
     }
     
     useEffect(() => {
@@ -41,8 +41,15 @@ export const Main = () => {
         <div className={classes.page}>
             <div className={classes.topDiv}></div>
             <div className={classes.postsDiv}>
-                {postsList?.map((post) => {
-                    return <Post username={post.username} userPhoto={post.userPhoto} value={post.value} date={post.createdAt}  key={post.postId}/> 
+                {postsArray?.map((post) => {
+                    return (
+                    <Post
+                        username={post.username} 
+                        userPhoto={post.userPhoto} 
+                        value={post.value} 
+                        date={post.createdAt}  
+                        key={post.postId}
+                    />)
                 })}
             </div>
         </div>
