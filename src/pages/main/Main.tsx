@@ -2,18 +2,24 @@ import classes from './Main.module.css';
 import { Post } from '../../components/post/Post';
 
 import { getDocs, collection, query, orderBy, limit } from 'firebase/firestore';
-import { database } from '../../config/firebase';
+import { database, auth} from '../../config/firebase';
 import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export interface PostInterface {
     postId: string,
     id: string,
     userPhoto: string,
     username: string,
-    value: string
+    value: string,
+    createdAt: string
 }
 
 export const Main = () => {
+
+    //getting the user
+    const [user] = useAuthState(auth);
+
     const [postsList, setPostsList] = useState<PostInterface[] | null>(null);
 
     const postsCollection = collection(database, 'posts');
@@ -36,7 +42,7 @@ export const Main = () => {
             <div className={classes.topDiv}></div>
             <div className={classes.postsDiv}>
                 {postsList?.map((post) => {
-                    return <Post username={post.username} userPhoto={post.userPhoto} value={post.value} key={post.postId}/> 
+                    return <Post username={post.username} userPhoto={post.userPhoto} value={post.value} date={post.createdAt}  key={post.postId}/> 
                 })}
             </div>
         </div>

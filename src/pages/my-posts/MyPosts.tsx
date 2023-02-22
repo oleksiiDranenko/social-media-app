@@ -8,6 +8,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { database, auth } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 
+import userPicture from '../../icons/user-picture.png'
+
 export const MyPosts = () => {
     //getting the user
     const [user] = useAuthState(auth);
@@ -32,10 +34,19 @@ export const MyPosts = () => {
     return (
         <div className={classes.page}>
             <div className={classes.topDiv}></div>
+
+            <div className={classes.userInfo}>
+                <img 
+                    src={user?.photoURL || userPicture} 
+                    className={classes.userPicture}
+                />
+                <p className={classes.recentPosts}>My recent posts:</p>
+            </div>
+
             <div className={classes.postsDiv}>
             {postsList?.map((post) => {
                 if(user?.uid === post.id) {
-                    return <Post username={post.username} userPhoto={post.userPhoto} value={post.value} key={post.postId}/> 
+                    return <Post username={post.username} userPhoto={post.userPhoto} value={post.value} date={post.createdAt} key={post.postId}/> 
                 }
             })}
             </div>

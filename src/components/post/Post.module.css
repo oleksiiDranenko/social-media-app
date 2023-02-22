@@ -32,10 +32,22 @@
 
 .postValue{
     width: 100%;
-    min-height: 60px;
+    min-height: 40px;
 
-    padding: 15px 20px;
+    padding: 10px 20px;
     box-sizing: border-box;
 
     line-height: 30px;
+}
+
+.postDate{
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 20px;
+
+    font-size: 16px;
+    color: rgb(160, 160, 160);
 }

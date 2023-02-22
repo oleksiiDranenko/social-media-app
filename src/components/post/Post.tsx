@@ -3,7 +3,8 @@ import classes from './Post.module.css';
 interface PostInterface {
     username: string,
     userPhoto: string,
-    value: string
+    value: string,
+    date?: string
 }
 
 export const Post = (props: PostInterface) => {
@@ -19,6 +20,9 @@ export const Post = (props: PostInterface) => {
             </div>
             <div className={classes.postValue}>
                 {props.value}
+            </div>
+            <div className={classes.postDate}>
+                {props.date?.substring(0,5)}
             </div>
         </div>
     )

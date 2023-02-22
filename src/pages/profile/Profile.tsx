@@ -29,6 +29,9 @@ export const Profile = () => {
                 <p className={classes.userEmail}>
                     {user?.email}
                 </p>
+                <p className={user?.emailVerified ? classes.isVerified : classes.isNotVerified}>
+                    {user?.emailVerified ? 'Email verified' : 'Email not verified'}
+                </p>
                 <button 
                     onClick={userSignOut}
                     className={classes.signOutButton}

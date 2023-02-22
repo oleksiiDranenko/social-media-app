@@ -34,9 +34,21 @@
 }
 
 .userEmail{
+    margin-top: 15px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.isVerified{
+    margin-top: 15px;
+
+    font-size: 16px;
+    color: rgba(0, 140, 12, 0.8);
+}
+.isNotVerified{
     margin-top: 10px;
     font-size: 16px;
-    color: rgb(84, 84, 84);
+    color: rgba(140, 0, 0, 0.8);
 }
 
 .signOutButton{
@@ -51,12 +63,12 @@
     align-items: center;
     justify-content: center;
 
-    margin-top: 30px;
+    margin-top: 20px;
 
     text-decoration: none;
     color: rgb(0, 0, 0);
 
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease-in;
 }
 
 .signOutButton:hover{
