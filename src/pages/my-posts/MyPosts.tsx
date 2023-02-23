@@ -63,6 +63,7 @@ export const MyPosts = () => {
                             value={post.value} 
                             date={post.createdAt}  
                             key={post.postId}
+                            currentUser={true}
                         />)
                 }
             })}

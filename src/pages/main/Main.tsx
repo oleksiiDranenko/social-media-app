@@ -49,6 +49,7 @@ export const Main = () => {
                         value={post.value} 
                         date={post.createdAt}  
                         key={post.postId}
+                        currentUser={false}
                     />)
                 })}
             </div>
