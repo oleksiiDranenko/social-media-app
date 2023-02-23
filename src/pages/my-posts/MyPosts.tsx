@@ -7,14 +7,39 @@ import { auth } from '../../config/firebase';
 
 import userPicture from '../../icons/user-picture.png'
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
+import { getPostsArray } from '../../store/postsSlice';
+
+import { PostInterface } from '../main/Main';
+
+import { getDocs, collection, query, orderBy, limit } from 'firebase/firestore';
+import { database } from '../../config/firebase';
+import { useEffect } from 'react';
 
 export const MyPosts = () => {
     //getting the user
     const [user] = useAuthState(auth);
 
     const postsArray = useSelector((state: RootState) => state.postsArray);
+    const dispatch = useDispatch();
+
+    const postsCollection = collection(database, 'posts');
+
+    const getPosts = async () => {
+        // query for the 10 most recent posts
+        const q = query(postsCollection, orderBy("createdAt", "desc"), limit(10));
+        const querySnapshot = await getDocs(q);
+        const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id })) as PostInterface[];
+
+        dispatch(getPostsArray(posts));
+    }
+
+    useEffect(() => {
+        if(postsArray.length === 0){
+            getPosts()
+        }
+    }, [])
 
     return (
         <div className={classes.page}>
