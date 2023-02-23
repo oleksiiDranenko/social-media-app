@@ -3,17 +3,24 @@ import classes from './Form.module.css';
 //react hooks
 import { useState } from 'react';
 //firebase
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { database, auth } from '../../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+//react router
 import { useNavigate } from 'react-router-dom';
 
 
 export const Form = () => {
     //max charachters
     const MAX_CHAR = 500;
-
+    //input valiue state
     const [inputValue, setInputValue] = useState<string>('');
+    //getting the user
+    const [user] = useAuthState(auth);
+    //getting the collection of posts
+    const postsCollection = collection(database, 'posts');
+    //navigation
+    const navigate = useNavigate();
 
     //prevent linebreaks
     const excludeEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -26,13 +33,6 @@ export const Form = () => {
     const inputOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValue(e.target.value)
     }
-
-    //getting the user
-    const [user] = useAuthState(auth);
-    //getting the collection of posts
-    const postsCollection = collection(database, 'posts');
-
-    const navigate = useNavigate();
 
     const submitForm = async (value: string, e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

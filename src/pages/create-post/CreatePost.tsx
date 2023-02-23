@@ -1,11 +1,15 @@
-import { Form } from './form/Form';
+//styles
 import classes from './CreatePost.module.css';
-import { useAuthState } from 'react-firebase-hooks/auth';
+//custom element
+import { Form } from './form/Form';
+//firebase
 import { auth } from '../../config/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+//icon
 import unknownUser from '../../icons/user-picture.png';
 
 export const CreatePost = () => {
-
+    //getting the user
     const [user] = useAuthState(auth);
 
     return (

@@ -1,7 +1,11 @@
+//styles
 import classes from './GoogleSignUpButton.module.css';
+//firebase
 import { auth, provider } from '../../../config/firebase';
 import { signInWithPopup } from 'firebase/auth';
+//react router
 import { useNavigate } from 'react-router-dom';
+//icon
 import googleIcon from '../icon/google.png';
 
 export const GoogleSignUpButton = () => {

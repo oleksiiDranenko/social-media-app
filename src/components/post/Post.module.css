@@ -82,6 +82,11 @@
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
     border: none;
+
+    font-family: sans-serif;
+	font-weight: 300;
+
+    transition: background-color 0.1s ease-in;
 }
 .optionsOption:hover{
     background-color: rgb(245, 245, 245);
@@ -95,7 +100,12 @@
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
     border: none;
+    
+    font-family: sans-serif;
+	font-weight: 300;
     color: rgba(255, 0, 0, 0.8);
+
+    transition: background-color 0.1s ease-in;
 }
 .optionsDelete:hover{
     background-color: rgb(245, 245, 245);

@@ -1,10 +1,14 @@
+//styles
 import classes from './Main.module.css';
+//custom elements
 import { Post } from '../../components/post/Post';
-
-import { getDocs, collection, query, orderBy, limit } from 'firebase/firestore';
-import { database } from '../../config/firebase';
+//firebase
+import { getDocs, collection, query, orderBy, limit, doc, deleteDoc } from 'firebase/firestore';
+import { database, auth } from '../../config/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+//react hooks
 import { useEffect } from 'react';
-
+//redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { getPostsArray } from '../../store/postsSlice';
@@ -19,6 +23,10 @@ export interface PostInterface {
 }
 
 export const Main = () => {
+    //getting the user
+    const [user] = useAuthState(auth);
+
+    //gettting posts state
     const postsArray = useSelector((state: RootState) => state.postsArray);
     const dispatch = useDispatch();
 
@@ -37,6 +45,17 @@ export const Main = () => {
         getPosts();
     }, [])
 
+    //delete post in database
+    const deletePost = async (post: PostInterface) => {
+        const postRef = doc(database, 'posts', post.postId);
+        await deleteDoc(postRef);
+    }
+    //delete and make a request to change the posts array state
+    const handleDelete = async (post: PostInterface) => {
+        await deletePost(post);
+        getPosts()
+    }
+
     return (
         <div className={classes.page}>
             <div className={classes.topDiv}></div>
@@ -49,7 +68,9 @@ export const Main = () => {
                         value={post.value} 
                         date={post.createdAt}  
                         key={post.postId}
-                        currentUser={false}
+                        postId={post.postId}
+                        currentUser={user?.uid === post.id}
+                        deleteFunc={() => handleDelete(post)}
                     />)
                 })}
             </div>

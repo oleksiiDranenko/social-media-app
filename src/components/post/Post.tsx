@@ -1,25 +1,54 @@
+//styles
 import classes from './Post.module.css';
+//react hooks
+import { useState, useRef, useEffect } from 'react';
+//copy
+import copy from 'copy-to-clipboard';
+//icon
 import optionsIcon from '../../icons/options.png'
-import { useState } from 'react';
-import { auth } from '../../config/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+
 
 interface PostInterface {
     username: string,
     userPhoto: string,
     value: string,
     date: string,
-    currentUser: boolean
+    currentUser: boolean,
+    deleteFunc?(): any,
+    postId: string
 }
 
 export const Post = (props: PostInterface) => {
-    //getting the user
-    const [user] = useAuthState(auth);
-
+    //options state
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const optionsRef = useRef<HTMLDivElement>(null);
+    //copied state
+    const [isCopied, setIsCopied] = useState<boolean>(false);
 
-    const manageOptions = () => {
-        setIsOpen(!isOpen)
+    //track clicks outside options to close
+    useEffect(() => {
+        const handleOutsideClick = (e: MouseEvent) => {
+            if(optionsRef.current && !optionsRef.current.contains(e.target as Node)){
+                setIsOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleOutsideClick)
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick)
+        }
+    }, [])
+
+    //open/close options
+    const handleOptions = () => {
+        setIsOpen(!isOpen);
+    }
+
+    //copy posts value
+    const handleCopy = () => {
+        copy(props.value);
+        setIsCopied(true);
     }
 
     return (
@@ -34,24 +63,28 @@ export const Post = (props: PostInterface) => {
                     <span className={classes.username}>{props.username}</span>
                 </div>
 
-                <button onClick={manageOptions} className={classes.optionsButton}>
-                    <img 
-                        src={optionsIcon}
-                        className={classes.optionsIcon}
-                    />
-                </button>
-            </div>
+                <div ref={optionsRef}>
+                    <button onClick={handleOptions} className={classes.optionsButton}>
+                        <img 
+                            src={optionsIcon}
+                            className={classes.optionsIcon}
+                        />
+                    </button>
+                    {isOpen ? 
+                        <div className={classes.options}>
+                            {props.currentUser ? 
+                                <>
+                                <button onClick={handleCopy} className={classes.optionsOption}>{isCopied ? 'Copied!' : 'Copy'}</button>
+                                <button onClick={props.deleteFunc} className={classes.optionsDelete}>Delete</button>
+                                </>
+                            : <button onClick={handleCopy} className={classes.optionsOption}>
+                                {isCopied ? 'Copied!' : 'Copy'}
+                              </button>}
+                        </div> 
+                    : null}
+                </div>
 
-            {isOpen ? 
-                <div className={classes.options}>
-                    {props.currentUser ? 
-                        <>
-                        <button className={classes.optionsOption}>Copy</button>
-                        <button className={classes.optionsDelete}>Delete</button>
-                        </>
-                    : <button className={classes.optionsOption}>Copy</button>}
-                </div> 
-            : null}
+            </div>
 
             <div className={classes.postValue}>
                 {props.value}

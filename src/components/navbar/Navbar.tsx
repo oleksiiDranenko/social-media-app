@@ -1,15 +1,19 @@
-import { Link } from 'react-router-dom';
+//styles
 import classes from './Navbar.module.css';
+//react router
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+//firebase
 import { auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+//icons
 import unknownUser from '../../icons/user-picture.png';
 import logo from './icon/logo.png';
-import { useLocation } from 'react-router-dom';
 
 export const Navbar = () => {
-
+    //getting the user
     const [user] = useAuthState(auth);
-
+    
     const location = useLocation();
 
     return (

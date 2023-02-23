@@ -1,13 +1,18 @@
+//styles
+import classes from './Profile.module.css';
+//firebase
 import { auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import unknownUser from '../../icons/user-picture.png';
-import classes from './Profile.module.css';
 import { signOut } from 'firebase/auth';
+//react router
 import { useNavigate } from 'react-router-dom';
+//icon
+import unknownUser from '../../icons/user-picture.png';
 
 export const Profile = () => {
-
+    //getting the user
     const [user] = useAuthState(auth);
+
     const navigate = useNavigate();
 
     const userSignOut = async () => {

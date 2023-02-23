@@ -1,5 +1,7 @@
-import { GoogleSignUpButton } from './button/GoogleSighUpButton';
+//styles
 import classes from './SignUp.module.css';
+//custom element
+import { GoogleSignUpButton } from './button/GoogleSighUpButton';
 
 export const SignUp = () => {
     
