@@ -4,6 +4,8 @@ import classes from './Post.module.css';
 import { useState, useRef, useEffect } from 'react';
 //copy
 import copy from 'copy-to-clipboard';
+//months array
+import { monthsArray } from '../../months/months-array';
 //icon
 import optionsIcon from '../../icons/options.png'
 
@@ -14,7 +16,7 @@ interface PostInterface {
     value: string,
     date: string,
     currentUser: boolean,
-    deleteFunc?(): any,
+    deleteFunc(): void,
     postId: string
 }
 
@@ -90,7 +92,9 @@ export const Post = (props: PostInterface) => {
                 {props.value}
             </div>
             <div className={classes.postDate}>
-                {props.date?.substring(0,5)}
+                {`${props.date?.substring(11,16)} 
+                ${monthsArray[parseInt(props.date?.substring(5,8))]} 
+                ${props.date?.substring(8,10)}`} 
             </div>
         </div>
     )

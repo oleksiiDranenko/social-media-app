@@ -45,7 +45,7 @@ export const Form = () => {
                 username: user?.displayName,
                 userPhoto: user?.photoURL,
                 value: value,
-                createdAt: new Date().toLocaleTimeString()
+                createdAt: new Date().toISOString()
             })
             navigate('/')
         }
