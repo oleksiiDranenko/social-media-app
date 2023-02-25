@@ -7,11 +7,12 @@ import { getDocs, collection, query, orderBy, limit, doc, deleteDoc } from 'fire
 import { database, auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 //react hooks
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 //redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { getPostsArray } from '../../store/postsSlice';
+import { Loading } from '../../components/loading/Loading';
 
 export interface PostInterface {
     postId: string,
@@ -26,6 +27,9 @@ export const Main = () => {
     //getting the user
     const [user] = useAuthState(auth);
 
+    //loading state
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
     //gettting posts state
     const postsArray = useSelector((state: RootState) => state.postsArray);
     const dispatch = useDispatch();
@@ -39,6 +43,7 @@ export const Main = () => {
         const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id })) as PostInterface[];
 
         dispatch(getPostsArray(posts));
+        setIsLoading(false);
     }
     
     useEffect(() => {
@@ -60,7 +65,7 @@ export const Main = () => {
         <div className={classes.page}>
             <div className={classes.topDiv}></div>
             <div className={classes.postsDiv}>
-                {postsArray?.map((post) => {
+                {isLoading ? <Loading w='50px' h='50px'/> : postsArray?.map((post) => {
                     return (
                     <Post
                         username={post.username} 

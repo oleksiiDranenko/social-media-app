@@ -9,10 +9,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 //icons
 import unknownUser from '../../icons/user-picture.png';
 import logo from './icon/logo.png';
+import { Loading } from '../loading/Loading';
 
 export const Navbar = () => {
     //getting the user
-    const [user] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     
     const location = useLocation();
 
@@ -51,9 +52,9 @@ export const Navbar = () => {
             
             <div className={classes.userDiv}>
                 {
-                    !user ? 
-                        <Link className={classes.signUpLink} to={'/signup'}>Sign up</Link>
-                    :
+                    loading ? 
+                        <Loading w='40px' h='40px'/>
+                    : user ?
                         <>
                             <span>{user?.displayName}</span>
                             <Link to='/profile'>
@@ -63,7 +64,8 @@ export const Navbar = () => {
                                     alt="profile picture" 
                                 />
                             </Link>
-                        </>
+                        </> : !user ?? 
+                            <Link className={classes.signUpLink} to={'/signup'}>Sign up</Link>
                 }
             </div>
         </div>   

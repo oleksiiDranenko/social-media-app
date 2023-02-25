@@ -17,10 +17,11 @@ import { PostInterface } from '../main/Main';
 import { useEffect } from 'react';
 //icon
 import userPicture from '../../icons/user-picture.png'
+import { Loading } from '../../components/loading/Loading';
 
 export const MyPosts = () => {
     //getting the user
-    const [user] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
 
     const postsArray = useSelector((state: RootState) => state.postsArray);
     const dispatch = useDispatch();
@@ -59,13 +60,21 @@ export const MyPosts = () => {
         <div className={classes.page}>
             <div className={classes.topDiv}></div>
 
-            <div className={classes.userInfo}>
-                <img 
-                    src={user?.photoURL || userPicture} 
-                    className={classes.userPicture}
-                />
-                <p className={classes.recentPosts}>My recent posts:</p>
-            </div>
+            {loading ? 
+                <div className={classes.userInfo}>
+                    <Loading w='50px' h='50px' className={classes.loadingPicture}/>
+                    <p className={classes.recentPosts}>My recent posts:</p>
+                </div>
+            : user ? 
+                <div className={classes.userInfo}>
+                    <img 
+                        src={user?.photoURL || userPicture} 
+                        className={classes.userPicture}
+                    />
+                    <p className={classes.recentPosts}>My recent posts:</p>
+                </div>
+            : !user ?? null
+            }
 
             <div className={classes.postsDiv}>
             {postsArray?.map((post) => {
