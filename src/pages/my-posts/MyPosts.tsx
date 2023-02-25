@@ -34,7 +34,6 @@ export const MyPosts = () => {
         const querySnapshot = await getDocs(q);
         const posts = querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id })) as PostInterface[];
 
-        console.log('request my-posts')
         dispatch(getPostsArray(posts));
     }
     

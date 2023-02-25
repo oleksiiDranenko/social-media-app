@@ -53,7 +53,7 @@ export const Navbar = () => {
             <div className={classes.userDiv}>
                 {
                     loading ? 
-                        <Loading w='40px' h='40px'/>
+                        <Loading w='35px' h='35px'/>
                     : user ?
                         <>
                             <span>{user?.displayName}</span>
@@ -64,7 +64,7 @@ export const Navbar = () => {
                                     alt="profile picture" 
                                 />
                             </Link>
-                        </> : !user ?? 
+                        </> : !user && 
                             <Link className={classes.signUpLink} to={'/signup'}>Sign up</Link>
                 }
             </div>
