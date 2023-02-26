@@ -5,7 +5,7 @@ import { Post } from '../../components/post/Post';
 //firebase
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../config/firebase';
-import { getDocs, collection, query, orderBy, limit, doc, deleteDoc } from 'firebase/firestore';
+import { getDocs, collection, query, orderBy, limit, doc, deleteDoc, where, writeBatch } from 'firebase/firestore';
 import { database } from '../../config/firebase';
 //redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,6 +27,7 @@ export const MyPosts = () => {
     const dispatch = useDispatch();
 
     const postsCollection = collection(database, 'posts');
+    const likesCollection = collection(database, 'likes');
 
     const getPosts = async () => {
         // query for the 10 most recent posts
@@ -45,8 +46,20 @@ export const MyPosts = () => {
 
     //delete post in database
     const deletePost = async (post: PostInterface) => {
+        //deleting post in 'posts' collection
         const postRef = doc(database, 'posts', post.postId);
         await deleteDoc(postRef);
+
+        //deleting all likes of the post
+        //query for doc with the same post and user id
+        const deleteQuery = query(likesCollection, where('postId', '==', post.postId));
+        //getting all documents with the query
+        const deleteData = await getDocs(deleteQuery);
+        //create a batch
+        const batch = writeBatch(database);
+        deleteData.forEach(doc => batch.delete(doc.ref));
+        //commit a batch to delete all documents at once
+        await batch.commit();
     }
     //delete and make a request to change the posts array state
     const handleDelete = async (post: PostInterface) => {
