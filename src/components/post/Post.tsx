@@ -14,6 +14,8 @@ import { monthsArray } from '../../months/months-array';
 import optionsIcon from '../../icons/options.png';
 import likeIcon from './icons/like.png';
 import likeActiveIcon from './icons/like-active.png';
+import commentIcon from './icons/comment.png';
+import { Comments } from '../comments/Comments';
 
 
 interface PostInterface {
@@ -35,12 +37,14 @@ export const Post = (props: PostInterface) => {
     const [user] = useAuthState(auth);
 
     //options state
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [optionsOpen, setOptionsOpen] = useState<boolean>(false);
     const optionsRef = useRef<HTMLDivElement>(null);
     //copied state
     const [isCopied, setIsCopied] = useState<boolean>(false);
     //likes count
     const [likesArray, setLikesArray] = useState<LikeInterface[]>([]);
+    //are comments open
+    const [commentsOpen, setCommentsOpen] = useState<boolean>(false);
     
     //likes collection
     const likesCollection = collection(database, 'likes');
@@ -106,7 +110,7 @@ export const Post = (props: PostInterface) => {
     useEffect(() => {
         const handleOutsideClick = (e: MouseEvent) => {
             if(optionsRef.current && !optionsRef.current.contains(e.target as Node)){
-                setIsOpen(false);
+                setOptionsOpen(false);
             }
         }
 
@@ -119,7 +123,7 @@ export const Post = (props: PostInterface) => {
 
     //open/close options
     const handleOptions = () => {
-        setIsOpen(!isOpen);
+        setOptionsOpen(!optionsOpen);
     }
 
     //copy posts value
@@ -128,13 +132,17 @@ export const Post = (props: PostInterface) => {
         setIsCopied(true);
     }
 
+    //open/close comments
+    const handleComments = () => {
+        setCommentsOpen(!commentsOpen);
+    }
+
     return (
         <div className={classes.post}>
             <div className={classes.userInfo}>
                 <div className={classes.user}>
                     <img 
                         src={props.userPhoto}
-                        alt='user profile photo'
                         className={classes.userPhoto}
                     />
                     <span className={classes.username}>{props.username}</span>
@@ -147,7 +155,7 @@ export const Post = (props: PostInterface) => {
                             className={classes.optionsIcon}
                         />
                     </button>
-                    {isOpen ? 
+                    {optionsOpen ? 
                         <div className={classes.options}>
                             {props.currentUser ? 
                                 <>
@@ -173,13 +181,23 @@ export const Post = (props: PostInterface) => {
                     ${props.date?.substring(8,10)}`} 
                 </div>
 
-                <div className={classes.likesSection}>
-                    <button onClick={isLiked ? removeLike : addLike} className={classes.likeButton}>
-                        <img src={isLiked ? likeActiveIcon : likeIcon} className={classes.likeIcon}/>
+                <div className={classes.engagementSection}>
+                    <button onClick={isLiked ? removeLike : addLike} className={classes.engagementButton}>
+                        <img src={isLiked ? likeActiveIcon : likeIcon} className={classes.engagementIcon}/>
                     </button>
-                    <span className={classes.likesCount}>{likesArray.length}</span>
+                    <span className={classes.engagementCount}>{likesArray.length}</span>
+                </div>
+
+                <div className={classes.engagementSection}>
+                    <button onClick={handleComments} className={classes.engagementButton}>
+                        <img src={commentIcon} className={classes.engagementIcon}/>
+                    </button>
+                    <span className={classes.engagementCount}>{}</span>
                 </div>
             </div>
+            {
+                commentsOpen ? <Comments postId={props.postId}/> : null
+            }
         </div>
     )
 }

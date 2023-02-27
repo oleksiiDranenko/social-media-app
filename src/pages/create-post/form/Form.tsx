@@ -17,6 +17,7 @@ export const Form = () => {
     const [inputValue, setInputValue] = useState<string>('');
     //getting the user
     const [user] = useAuthState(auth);
+    
     //getting the collection of posts
     const postsCollection = collection(database, 'posts');
     //navigation

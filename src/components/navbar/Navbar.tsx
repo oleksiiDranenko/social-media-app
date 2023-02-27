@@ -61,7 +61,6 @@ export const Navbar = () => {
                                 <img
                                     className={classes.profileImg} 
                                     src={user?.photoURL || unknownUser} 
-                                    alt="profile picture" 
                                 />
                             </Link>
                         </> : !user && 

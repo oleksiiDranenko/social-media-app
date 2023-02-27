@@ -28,6 +28,7 @@ export const MyPosts = () => {
 
     const postsCollection = collection(database, 'posts');
     const likesCollection = collection(database, 'likes');
+    const commentsCollection = collection(database, 'comments');
 
     const getPosts = async () => {
         // query for the 10 most recent posts
@@ -46,20 +47,31 @@ export const MyPosts = () => {
 
     //delete post in database
     const deletePost = async (post: PostInterface) => {
-        //deleting post in 'posts' collection
+        ///deleting post in 'posts' collection
         const postRef = doc(database, 'posts', post.postId);
         await deleteDoc(postRef);
 
         //deleting all likes of the post
-        //query for doc with the same post and user id
-        const deleteQuery = query(likesCollection, where('postId', '==', post.postId));
-        //getting all documents with the query
-        const deleteData = await getDocs(deleteQuery);
+        //query for like doc with the same post and user id
+        const likesQuery = query(likesCollection, where('postId', '==', post.postId));
+        //getting all like documents with the query
+        const likesDocs = await getDocs(likesQuery);
         //create a batch
-        const batch = writeBatch(database);
-        deleteData.forEach(doc => batch.delete(doc.ref));
-        //commit a batch to delete all documents at once
-        await batch.commit();
+        const likesBatch = writeBatch(database);
+        likesDocs.forEach(doc => likesBatch.delete(doc.ref));
+        //commit a batch to delete all like documents at once
+        await likesBatch.commit();
+
+        //deleting all comments of the post
+        //query for comment doc with the same post and user id
+        const commentsQuery = query(commentsCollection, where('postId', '==', post.postId));
+        //getting all comment documents with the query
+        const commentsDocs = await getDocs(commentsQuery);
+        //create a batch
+        const commentsBatch = writeBatch(database);
+        commentsDocs.forEach(doc => commentsBatch.delete(doc.ref));
+        //commit a batch to delete all comment documents at once
+        await commentsBatch.commit();
     }
     //delete and make a request to change the posts array state
     const handleDelete = async (post: PostInterface) => {
