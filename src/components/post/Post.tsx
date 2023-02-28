@@ -6,6 +6,8 @@ import { useState, useRef, useEffect } from 'react';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { auth, database } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+//custom element
+import { Comments, CommentInterface } from '../comments/Comments';
 //copy
 import copy from 'copy-to-clipboard';
 //months array
@@ -15,8 +17,6 @@ import optionsIcon from '../../icons/options.png';
 import likeIcon from './icons/like.png';
 import likeActiveIcon from './icons/like-active.png';
 import commentIcon from './icons/comment.png';
-import { Comments } from '../comments/Comments';
-
 
 interface PostInterface {
     username: string,
@@ -27,7 +27,7 @@ interface PostInterface {
     deleteFunc(): void,
     postId: string
 }
-
+ 
 interface LikeInterface {
     userId: string
 }
@@ -43,13 +43,18 @@ export const Post = (props: PostInterface) => {
     const [isCopied, setIsCopied] = useState<boolean>(false);
     //likes count
     const [likesArray, setLikesArray] = useState<LikeInterface[]>([]);
+    const [commentsCount, setCommentsCount] = useState<number>(0);
     //are comments open
     const [commentsOpen, setCommentsOpen] = useState<boolean>(false);
     
     //likes collection
     const likesCollection = collection(database, 'likes');
-    //query for documents with this posts id
+    //comments collection
+    const commentsCollection = collection(database, 'comments');
+    //query for like documents with this posts id
     const likeDocs = query(likesCollection, where('postId', '==', props.postId));
+    //query for comment documents with this post id
+    const commentDocs = query(commentsCollection, where('postId', '==', props.postId));
 
     //is user already liked 
     const isLiked = likesArray.find((like) => like.userId === user?.uid);
@@ -58,6 +63,19 @@ export const Post = (props: PostInterface) => {
     const getLikes = async () => {
         const data = await getDocs(likeDocs);
         setLikesArray(data.docs.map((doc) => ({userId: doc.data().userId})))
+    }
+    //getting comments array
+    const getComments = async () => {
+        const data = await getDocs(commentDocs);
+        setCommentsCount(data.docs.map((doc) => ({...doc.data()}) as CommentInterface).length);
+    }
+    //changing the comments count when new comment added
+    const increaseCommentsState = () => {
+        setCommentsCount(commentsCount + 1)
+    }
+    //changing the comments count when comment deleted
+    const decreaseCommentsState = () => {
+        setCommentsCount(commentsCount - 1)
     }
 
     //adding like document 
@@ -100,9 +118,10 @@ export const Post = (props: PostInterface) => {
         }
     }
 
-    //update likes count state
+    //update likes and comments count state
     useEffect(() => {
-        getLikes()
+        getLikes();
+        getComments();
     }, [])
 
 
@@ -192,11 +211,16 @@ export const Post = (props: PostInterface) => {
                     <button onClick={handleComments} className={classes.engagementButton}>
                         <img src={commentIcon} className={classes.engagementIcon}/>
                     </button>
-                    <span className={classes.engagementCount}>{}</span>
+                    <span className={classes.engagementCount}>{commentsCount}</span>
                 </div>
             </div>
             {
-                commentsOpen ? <Comments postId={props.postId}/> : null
+                commentsOpen ? 
+                <Comments 
+                    postId={props.postId} 
+                    increaseCommentsState={increaseCommentsState} 
+                    decreaseCommentsState={decreaseCommentsState}
+                /> : null
             }
         </div>
     )
