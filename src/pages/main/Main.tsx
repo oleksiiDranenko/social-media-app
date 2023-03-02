@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { getPostsArray } from '../../store/postsSlice';
 import { Loading } from '../../components/loading/Loading';
+//react responsive
+import { useMediaQuery } from 'react-responsive';
 
 export interface PostInterface {
     postId: string,
@@ -26,6 +28,8 @@ export interface PostInterface {
 export const Main = () => {
     //getting the user
     const [user] = useAuthState(auth);
+    //getting screen size
+    const smallScreen = useMediaQuery({query: '(max-width: 650px)'})
 
     //loading state
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -106,6 +110,7 @@ export const Main = () => {
                     />)
                 })}
             </div>
+            {smallScreen && <div className={classes.bottomDiv}></div>}
         </div>
     )
 }

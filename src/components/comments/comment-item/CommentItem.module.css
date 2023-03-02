@@ -95,6 +95,7 @@
     border-radius: 5px;
     border: none;
 
+    color: rgb(0, 0, 0);
     font-family: sans-serif;
 	font-weight: 300;
 
@@ -126,7 +127,7 @@
 
 .commentValue{
     min-height: 35px;
-    width: 285px;
+    width: 95%;
 
     margin: 0 15px;
     padding: 0 15px 20px 0;
@@ -138,4 +139,22 @@
 
     display: flex;
     align-items: flex-start;
+}
+
+@media (max-width: 650px){
+    .comment{
+        width: 300px;
+    }
+    .commentBody{
+        width: 265px;
+    }
+}
+
+@media (max-width: 450px) {
+    .comment{
+        width: 250px;
+    }
+    .commentBody{
+        width: 215px;
+    }
 }

@@ -15,6 +15,8 @@ import { getPostsArray } from '../../store/postsSlice';
 import { PostInterface } from '../main/Main';
 //hooks
 import { useEffect } from 'react';
+//react responsive
+import { useMediaQuery } from 'react-responsive';
 //icon
 import userPicture from '../../icons/user-picture.png'
 import { Loading } from '../../components/loading/Loading';
@@ -22,6 +24,9 @@ import { Loading } from '../../components/loading/Loading';
 export const MyPosts = () => {
     //getting the user
     const [user, loading] = useAuthState(auth);
+
+    //getting screen size
+    const smallScreen = useMediaQuery({query: '(max-width: 650px)'})
 
     const postsArray = useSelector((state: RootState) => state.postsArray);
     const dispatch = useDispatch();
@@ -117,6 +122,7 @@ export const MyPosts = () => {
                 }
             })}
             </div>
+            {smallScreen && <div className={classes.bottomDiv}></div>}
         </div>
     )
 }

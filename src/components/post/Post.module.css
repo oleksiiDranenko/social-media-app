@@ -86,6 +86,7 @@
     border-radius: 5px;
     border: none;
 
+    color: rgb(0, 0, 0);
     font-family: sans-serif;
 	font-weight: 300;
 
@@ -179,4 +180,17 @@
 
     font-size: 14px;
     color: rgb(0, 0, 0);
+}
+
+
+@media (max-width: 650px){
+    .post{
+        width: 400px;
+    }
+}
+
+@media (max-width: 450px) {
+    .post{
+        width: 350px;
+    }
 }

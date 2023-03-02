@@ -59,3 +59,15 @@
     flex-direction: column;
     align-items: flex-end;
 }
+
+@media (max-width: 650px){
+    .input{
+        width: 310px;
+    }
+}
+
+@media (max-width: 450px) {
+    .input{
+        width: 260px;
+    }
+}

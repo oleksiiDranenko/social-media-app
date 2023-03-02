@@ -26,7 +26,7 @@ export const Navbar = () => {
                     alt="app logo" 
                     className={classes.logo}
                 />
-                <span>Posting app</span>
+                <span className={classes.logoText}>Posting app</span>
             </div>
 
             <div className={classes.navDiv}>
@@ -37,16 +37,16 @@ export const Navbar = () => {
                     All posts
                 </Link>
                 <Link 
-                    className={location.pathname === '/my-posts' ? classes.navLinkFocused : classes.navLink} 
-                    to={user ? '/my-posts' : '/signup'}
-                >
-                    My posts
-                </Link>
-                <Link 
                     className={location.pathname === '/create-post' ? classes.navLinkFocused : classes.navLink} 
                     to={user ? '/create-post' : '/signup'}
                 >
                     New post
+                </Link>
+                <Link 
+                    className={location.pathname === '/my-posts' ? classes.navLinkFocused : classes.navLink} 
+                    to={user ? '/my-posts' : '/signup'}
+                >
+                    My posts
                 </Link>
             </div>
             
