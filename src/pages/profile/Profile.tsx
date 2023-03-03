@@ -23,6 +23,7 @@ export const Profile = () => {
 
     return (
         <div className={classes.page}>
+            <div className={classes.topDiv}></div>
             {loading ? 
                 <div className={classes.profile}>
                     <Loading w='50px' h='50px'/>

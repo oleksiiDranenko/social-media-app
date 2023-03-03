@@ -26,7 +26,7 @@
     height: 25px;
 
     border-radius: 100px;
-    border: 0.5px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .commentBody{
@@ -83,6 +83,7 @@
     width: 120px;
     height: auto;
 
+    font-size: 14px;
     background-color: rgb(255, 255, 255);
     border-radius: 5px;
     border: 1px solid rgb(240, 240, 240);
@@ -142,6 +143,12 @@
 }
 
 @media (max-width: 650px){
+    .optionsOption{
+        font-size: 16px;
+    }
+    .optionsDelete{
+        font-size: 16px;
+    }
     .comment{
         width: 300px;
     }

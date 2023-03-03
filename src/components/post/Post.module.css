@@ -34,10 +34,13 @@
     margin-left: 20px;
 
     border-radius: 100px;
-    border: 0.5px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.3);
 }
 .username{
     margin-left: 10px;
+
+    color: rgb(0, 0, 0);
+    font-size: 16px;
 }
 
 .optionsButton{
@@ -88,6 +91,7 @@
 
     color: rgb(0, 0, 0);
     font-family: sans-serif;
+    font-size: 14px;
 	font-weight: 300;
 
     transition: background-color 0.1s ease-in;
@@ -106,6 +110,7 @@
     border: none;
     
     font-family: sans-serif;
+    font-size: 14px;
 	font-weight: 300;
     color: rgba(255, 0, 0, 0.8);
 
@@ -123,6 +128,8 @@
     padding: 10px 20px;
     box-sizing: border-box;
 
+    color: rgb(0, 0, 0);
+    font-size: 16px;
     line-height: 30px;
 }
 
@@ -184,6 +191,12 @@
 
 
 @media (max-width: 650px){
+    .optionsOption{
+        font-size: 16px;
+    }
+    .optionsDelete{
+        font-size: 16px;
+    }
     .post{
         width: 400px;
     }

@@ -15,6 +15,7 @@ export const CreatePost = () => {
 
     return (
         <div className={classes.page}>
+            <div className={classes.topDiv}></div>
             {loading ? 
                 <div className={classes.userData}>
                     <Loading className={classes.userPictureLoading}/>

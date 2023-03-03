@@ -22,7 +22,7 @@
     padding: 15px 20px;
     box-sizing: border-box;
 
-    border: 0.5px solid rgb(0, 0, 0);
+    border: 1px solid rgb(240, 240, 240);
     border-radius: 10px;
 }
 
@@ -44,7 +44,7 @@
     margin-top: 30px;
 
     background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.8);
     border-radius: 5px;
 
     color:  rgb(0, 0, 0);
