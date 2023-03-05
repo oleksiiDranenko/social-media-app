@@ -121,6 +121,19 @@
 }
 
 
+.imageDiv{
+    width: 100%;
+    min-height: 50px;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.image{
+    width: 100%;
+}
+
+
+
 .postValue{
     width: 100%;
     min-height: 40px;

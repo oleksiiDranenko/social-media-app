@@ -22,6 +22,7 @@ export interface PostInterface {
     userPhoto: string,
     username: string,
     value: string,
+    img: string | null,
     createdAt: string
 }
 
@@ -102,6 +103,7 @@ export const Main = () => {
                         username={post.username} 
                         userPhoto={post.userPhoto} 
                         value={post.value} 
+                        img={post.img}
                         date={post.createdAt}  
                         key={post.postId}
                         postId={post.postId}

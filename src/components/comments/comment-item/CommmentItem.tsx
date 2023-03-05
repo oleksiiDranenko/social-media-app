@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import copy from 'copy-to-clipboard';
 //icons
 import optionsIcon from '../../../icons/options.png';
+import { monthsArray } from '../../../months/months-array';
 
 export interface CommentProps {
     commentId: string,
@@ -63,7 +64,11 @@ export const CommentItem = (props: CommentProps) => {
             </div>
             <div className={classes.commentBody}>
                 <div className={classes.commentBodyTop}>
-                    <span className={classes.username}>{props.username}</span>
+                    <span className={classes.username}>
+                        {props.username}
+                    </span>
+
+
                     <div ref={optionsRef}>
                         <button 
                             className={classes.optionsButton} 
@@ -90,6 +95,12 @@ export const CommentItem = (props: CommentProps) => {
                 </div>
                 <div className={classes.commentValue}>
                     {props.value}
+                </div>
+
+                <div className={classes.commentDate}>
+                    {`${props.createdAt?.substring(11,16)} 
+                    ${monthsArray[parseInt(props.createdAt?.substring(5,8))]} 
+                    ${props.createdAt?.substring(8,10)}`} 
                 </div>
             </div>
 

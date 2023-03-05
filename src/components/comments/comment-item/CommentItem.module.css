@@ -131,7 +131,6 @@
     width: 95%;
 
     margin: 0 15px;
-    padding: 0 15px 20px 0;
 
     box-sizing: border-box;
 
@@ -140,6 +139,20 @@
 
     display: flex;
     align-items: flex-start;
+}
+
+.commentDate{
+    width: 100%;
+    height: 30px;
+
+    margin-left: 15px;
+
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 @media (max-width: 650px){

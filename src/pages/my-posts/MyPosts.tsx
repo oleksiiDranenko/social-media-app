@@ -113,6 +113,7 @@ export const MyPosts = () => {
                             username={post.username} 
                             userPhoto={post.userPhoto} 
                             value={post.value} 
+                            img={post.img}
                             date={post.createdAt}  
                             key={post.postId}
                             postId={post.postId}

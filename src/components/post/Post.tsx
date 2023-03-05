@@ -22,6 +22,7 @@ interface PostInterface {
     username: string,
     userPhoto: string,
     value: string,
+    img: string | null,
     date: string,
     currentUser: boolean,
     deleteFunc(): void,
@@ -187,8 +188,13 @@ export const Post = (props: PostInterface) => {
                         </div> 
                     : null}
                 </div>
-
             </div>
+
+            {props.img && 
+                <div className={classes.imageDiv}>
+                    <img src={props.img} className={classes.image}/>
+                </div>
+            }
 
             <div className={classes.postValue}>
                 {props.value}
