@@ -1,5 +1,5 @@
 # Social media app
 
-Website: https://images.hdrsoft.com/images/lighthouse/thumbs/hdr-vibrant.jpg
+Website: https://social-media-app-5e174.web.app/
 
 You can create post, add image, like, comment and more!
