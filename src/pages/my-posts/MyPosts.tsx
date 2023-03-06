@@ -20,6 +20,7 @@ import { useMediaQuery } from 'react-responsive';
 //icon
 import userPicture from '../../icons/user-picture.png'
 import { Loading } from '../../components/loading/Loading';
+import { NoPosts } from '../../components/no-posts/NoPosts';
 
 export const MyPosts = () => {
     //getting the user
@@ -106,22 +107,29 @@ export const MyPosts = () => {
             }
 
             <div className={classes.postsDiv}>
-            {postsArray?.map((post) => {
-                if(user?.uid === post.id) {
-                    return (
+            {postsArray.some(post => post.id === user?.uid) ? (
+               postsArray.map(post => {
+                  if (post.id === user?.uid) {
+                     return (
                         <Post
-                            username={post.username} 
-                            userPhoto={post.userPhoto} 
-                            value={post.value} 
-                            img={post.img}
-                            date={post.createdAt}  
-                            key={post.postId}
-                            postId={post.postId}
-                            currentUser={true}
-                            deleteFunc={() => handleDelete(post)}
-                        />)
-                }
-            })}
+                           username={post.username} 
+                           userPhoto={post.userPhoto} 
+                           value={post.value} 
+                           img={post.img}
+                           date={post.createdAt}  
+                           key={post.postId}
+                           postId={post.postId}
+                           currentUser={true}
+                           deleteFunc={() => handleDelete(post)}
+                        />
+                     )
+                  } else {
+                     return null
+                  }
+               })
+            ) : (
+               <NoPosts />
+            )}
             </div>
             {smallScreen && <div className={classes.bottomDiv}></div>}
         </div>

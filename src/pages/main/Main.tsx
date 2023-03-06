@@ -15,6 +15,7 @@ import { getPostsArray } from '../../store/postsSlice';
 import { Loading } from '../../components/loading/Loading';
 //react responsive
 import { useMediaQuery } from 'react-responsive';
+import { NoPosts } from '../../components/no-posts/NoPosts';
 
 export interface PostInterface {
     postId: string,
@@ -96,7 +97,8 @@ export const Main = () => {
         <div className={classes.page}>
             <div className={classes.topDiv}></div>
             <div className={classes.postsDiv}>
-                {isLoading ? <Loading w='50px' h='50px'/> 
+                { isLoading ? <Loading w='50px' h='50px'/> 
+                : postsArray.length === 0 ? <NoPosts/> 
                 : postsArray?.map((post) => {
                     return (
                     <Post

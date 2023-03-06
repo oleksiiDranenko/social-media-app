@@ -23,6 +23,8 @@ export const Form = () => {
     const [imageURL, setImageURL] = useState<string>('');
     //is url valid state
     const [isValidURL, setIsValidURL] = useState<boolean>(false);
+    //input placeholder
+    const [placeholder, setPlaceholder] = useState<'Paste image URL and submit' | 'URL is not valid'>('Paste image URL and submit')
     //getting the user
     const [user] = useAuthState(auth);
     //getting the collection of posts
@@ -46,11 +48,15 @@ export const Form = () => {
         }
         img.onerror = () => {
             setIsValidURL(false);
+            setImageURL('');
+            setPlaceholder('URL is not valid')
         }
     }
 
     const removeImage = () => {
         setIsValidURL(false);
+        setImageURL('');
+        setPlaceholder('Paste image URL and submit')
     }
 
     //prevent linebreaks
@@ -101,7 +107,7 @@ export const Form = () => {
             className={classes.form}
             onSubmit={(e) => submitForm(inputValue, e)}
         >
-
+            
             {isValidURL 
                 ? 
                     <div className={classes.imageDiv}>
@@ -121,14 +127,15 @@ export const Form = () => {
                         <input 
                             type="text" 
                             className={classes.imageURLInput}
-                            placeholder='https://...'
+                            placeholder={placeholder}
                             onChange={URLOnChange}
+                            value={imageURL}
                         />
                         <button 
                             className={classes.addImageButton}
                             onClick={URLFormOnSubmit}
                         >
-                            Add image
+                            Submit
                         </button>
                     </div>
             }
